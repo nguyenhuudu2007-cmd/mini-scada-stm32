@@ -1,0 +1,29 @@
+# STM32CubeIDE
+firmware/**/Debug/
+firmware/**/Release/
+firmware/**/.metadata/
+*.launch
+build/
+
+# Firmware artifacts
+*.elf
+*.bin
+*.hex
+*.map
+*.o
+*.d
+*.su
+
+# Qt
+host-qt/build*/
+*.user
+*.pro.user*
+
+# Logs
+logs/
+*.log
+
+# KiCad
+*-backups/
+*.kicad_prl
+fp-info-cache
