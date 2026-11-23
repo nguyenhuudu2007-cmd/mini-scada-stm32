@@ -1,0 +1,7 @@
+# udev rule for FTDI FT232R USB-RS232 adapter -> /dev/scada_rs232
+# Install:
+#   sudo cp scripts/99-scada-rs232.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+#
+# Optional: append ATTRS{serial}=="YOUR_SERIAL" if multiple FT232R adapters are attached.
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="scada_rs232", MODE="0660", GROUP="dialout", TAG+="uaccess"

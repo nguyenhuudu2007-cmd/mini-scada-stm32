@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, feat/speckit-trial ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  qt-hmi-and-tests:
+    name: Build Qt HMI & Run CTest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt6 & Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build g++ qt6-base-dev qt6-serialport-dev
+
+      - name: Configure & Build (Warning-Clean)
+        run: cmake -S host-qt -B build-qt -G Ninja && cmake --build build-qt
+
+      - name: Run Headless QtTest Suite
+        run: ctest --test-dir build-qt --output-on-failure
+
+  firmware-and-scripts:
+    name: Check STM32 Source & Lint Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ARM GCC & ShellCheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi shellcheck
+
+      - name: Syntax-Check STM32 main.c
+        run: |
+          cd firmware/stm32_SCADA_w1
+          arm-none-eabi-gcc "Core/Src/main.c" \
+            -mcpu=cortex-m3 -std=gnu11 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB \
+            -ICore/Inc -IDrivers/STM32F1xx_HAL_Driver/Inc \
+            -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy \
+            -IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
+            -IDrivers/CMSIS/Include \
+            -Wall -Wextra -mfloat-abi=soft -mthumb -fsyntax-only
+
+      - name: Lint Shell Scripts
+        run: shellcheck scripts/*.sh

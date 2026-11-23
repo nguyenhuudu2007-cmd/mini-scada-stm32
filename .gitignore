@@ -2,6 +2,7 @@
 firmware/**/Debug/
 firmware/**/Release/
 firmware/**/.metadata/
+firmware/**/.settings/
 *.launch
 build/
 
@@ -13,17 +14,27 @@ build/
 *.o
 *.d
 *.su
+*.cyclo
 
 # Qt
 host-qt/build*/
+host-qt/.qtcreator/
 *.user
 *.pro.user*
 
-# Logs
+# Python
+__pycache__/
+*.pyc
+
+# Logs & local personal notes
 logs/
 *.log
+docs/lo-trinh.md
 
 # KiCad
 *-backups/
 *.kicad_prl
 fp-info-cache
+
+# OS
+.DS_Store
