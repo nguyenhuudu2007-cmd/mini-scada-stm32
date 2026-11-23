@@ -1,5 +1,10 @@
 # STM32 Mini-SCADA — Servo & RTC Host (`ServoHMI`)
 
+[![CI](https://github.com/nguyenhuudu2007-cmd/mini-scada-stm32/actions/workflows/ci.yml/badge.svg)](https://github.com/nguyenhuudu2007-cmd/mini-scada-stm32/actions/workflows/ci.yml)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![STM32F103](https://img.shields.io/badge/MCU-STM32F103C8T6-03234B)
+![Qt6](https://img.shields.io/badge/HMI-Qt6%20C%2B%2B17-41CD52)
+
 Hệ thống **Mini-SCADA** gồm firmware nhúng trên **STM32F103C8T6 (Blue Pill)** và ứng dụng giám sát desktop **Qt6 (C++17)** trên Linux, giao tiếp hai chiều theo thời gian thực qua chuẩn **UART / RS232 (`115200 8N1`)**. Dự án tập trung vào **cơ chế khóa an toàn E-Stop hai đầu**, **kiến trúc tách lớp kiểm thử tự động (`QtTest` + `CTest`)**, và **bộ công cụ chẩn đoán phần cứng trực tiếp**.
 
 ## Kiến trúc hệ thống
